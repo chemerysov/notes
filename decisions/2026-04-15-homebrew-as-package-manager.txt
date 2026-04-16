@@ -1,0 +1,64 @@
+TITLE: Homebrew as the OS-level package manager
+
+DATE: 2026-04-15
+
+STATUS: accepted
+
+AUTHOR: Andrii Chemerysov
+
+
+CONTEXT
+
+A package manager is required to install and maintain developer tooling on
+macOS. The choice of package manager affects how reproducibly the machine can be
+reconstructed, how PATH is managed, and what operational overhead is incurred
+when tooling needs to be updated or audited.
+
+DECISION
+
+Homebrew is used as the primary package manager for developer tooling on this
+machine.
+
+ALTERNATIVES CONSIDERED
+
+MacPorts: an older, BSD-philosophy package manager. More principled in its
+isolation from the system, less likely to interfere with existing paths.
+Rejected because it builds from source by default making installation
+significantly slower, its formula ecosystem is substantially smaller than
+Homebrew's, and the practical consequence of hitting an undocumented edge case
+is poor: community resources are sparse compared to Homebrew.
+
+Nix and nix-darwin: a fully declarative, reproducible, purely functional package
+manager where every package is content-addressed and the entire machine state
+can in principle be expressed as a checked-in configuration. The alignment with
+transparency and reproducibility values is high on paper. Rejected because the
+operational overhead of learning the Nix expression language and the nix-darwin
+configuration model constitutes a meaningful project in itself, one whose cost
+is not currently justified. The cost-to-benefit ratio may shift if machine
+configuration complexity increases significantly.
+
+RATIONALE
+
+Homebrew has the largest formula ecosystem of any macOS package manager, the
+most active community, and the most available documentation. Its precompiled
+binary distribution model, referred to as bottles, makes installation fast in
+the common case. The dependency on Xcode Command Line Tools, which Homebrew
+requires as a foundation, is unavoidable on macOS regardless of which package
+manager is chosen, so it does not count against Homebrew specifically.
+
+CONSEQUENCES
+
+Positive: fast installation via precompiled bottles in the common case. Large
+formula ecosystem covering the full anticipated toolchain. Extensive
+documentation and community resources for troubleshooting.
+
+Negative: package state is mutable and not fully declarative. A brew upgrade can
+alter the machine in ways that are not recorded anywhere without additional
+discipline. PATH management requires attention on Apple Silicon, where Homebrew
+installs to /opt/homebrew/bin rather than a location on the default PATH, and
+the installer's automatic shell profile modification is the only record of this
+unless documented explicitly.
+
+Neutral: if OS-level reproducibility becomes a serious concern, migration to
+nix-darwin would be the appropriate next step, at the cost of a significant
+upfront learning investment.

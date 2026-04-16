@@ -1,0 +1,53 @@
+TITLE: Homebrew-managed git over Apple-supplied git
+
+DATE: 2026-04-15
+
+STATUS: accepted
+
+AUTHOR: Andrii Chemerysov
+
+
+CONTEXT
+
+macOS ships a working git via the Xcode Command Line Tools, which are installed
+as a dependency of Homebrew regardless of any other decision. The Apple-supplied
+git is functional and reasonably current. A decision is required on whether to
+additionally install git through Homebrew or rely on the system-supplied
+version.
+
+DECISION
+
+Git is installed and managed through Homebrew.
+
+ALTERNATIVES CONSIDERED
+
+Apple-supplied git: functional, integrated with the macOS Keychain credential
+manager by default, updated alongside macOS and Xcode, and tested by Apple
+against the current OS version. Rejected not on grounds of inadequacy but on
+grounds of inconsistency: managing the development toolchain through Homebrew
+while leaving one foundational tool outside that model creates a persistent
+exception in the mental model of how the machine is organized.
+
+RATIONALE
+
+The version gap between Apple's git and the Homebrew-managed upstream git is not
+the primary motivation. The current Apple-supplied version is recent enough that
+no concrete missing feature or known bug drives this decision. The motivation is
+toolchain consistency: when reasoning about installed tools and their update
+state, a single management path through Homebrew is cleaner than a hybrid where
+most tools are Homebrew-managed and git is not. A consistent mental model of the
+machine is worth a small installation cost.
+
+CONSEQUENCES
+
+Positive: git is managed and updated through the same path as all other
+developer tooling. The mental model of the toolchain has no exceptions at the
+foundational level.
+
+Negative: Keychain credential integration that Apple's git provides by default
+is not automatic with Homebrew git. Credential storage requires explicit
+configuration, either through the osxkeychain credential helper or SSH keys.
+
+Neutral: the version difference between Apple's git and the Homebrew upstream is
+negligible at the time of this decision and is not expected to become meaningful
+unless specific features or fixes in newer versions are required.

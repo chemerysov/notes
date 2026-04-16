@@ -1,0 +1,64 @@
+TITLE: Manual updates as Homebrew update strategy
+
+DATE: 2026-04-15
+
+STATUS: accepted
+
+AUTHOR: Andrii Chemerysov
+
+
+CONTEXT
+
+Homebrew does not update installed packages automatically. Without a deliberate
+update strategy, installed tools drift from their current versions over time,
+accumulating security exposure and version lag.
+
+DECISION
+
+Homebrew is updated manually on an unscheduled basis, running brew update &&
+brew upgrade when it comes to mind, anchored loosely to moments before invoking
+a significant tool such as git or python.
+
+ALTERNATIVES CONSIDERED
+
+Update on every terminal launch: guarantees currency but makes terminal launch
+contingent on network availability and introduces silent unobserved mutations to
+the machine's state. Rejected because the terminal is a critical fast tool whose
+launch should be unconditional, and because silent updates are a liability when
+diagnosing unexpected behavior changes.
+
+Scheduled daily background update via launchd: clean and invisible in normal
+operation but produces the same silent mutation problem as terminal launch
+updates, requires non-trivial launchd configuration, and adds infrastructure
+whose carrying cost exceeds the value it provides at this scale.
+
+Update only when installing something new: logically coherent for new
+installations but leaves existing tools, which have the largest security
+surface, entirely unaddressed.
+
+RATIONALE
+
+The manual unscheduled approach accepts the honest psychological reality that a
+maintenance task with no environmental trigger, no immediate feedback, and no
+visible consequence of neglect will not be performed on a fixed schedule
+reliably over a long time horizon. Rather than engineering around this with
+automation that obscures what the machine is doing, the strategy accepts human
+inconsistency as a given and works with it. The loose anchor to significant tool
+invocations provides an environmental trigger without being prescriptive. The
+update remains a conscious observed act, meaning the output is read and changes
+are noticed, preserving the human in the loop.
+
+CONSEQUENCES
+
+Positive: updates are observed and deliberate, changes to the toolchain are
+noticed. No infrastructure required. No terminal launch latency. No silent
+background mutations.
+
+Negative: update frequency is irregular and dependent on memory. Security
+exposure window is unbounded in principle. No guarantee of currency at any given
+moment.
+
+Neutral: this strategy will produce occasional periods of significant lag
+followed by a batch of updates, rather than continuous currency. The batch
+update behavior is acceptable given the threat model of a local development
+machine.
