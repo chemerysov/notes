@@ -10,4 +10,6 @@ brew doctor
 
 brew update
 brew upgrade
+
 brew install git
+brew install node
