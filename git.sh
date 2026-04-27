@@ -4,11 +4,13 @@ git --version
 # file location
 which git
 
-git init
-
 git config --global init.defaultBranch main
 git config --global user.name "Andrii Chemerysov"
 git config --global user.email "achemerysov@gmail.com"
+
+git init
+
+git clone https://github.com/chemerysov/os.git
 
 git status
 git branch -m main
