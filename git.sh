@@ -25,3 +25,17 @@ git remote add origin https://github.com/chemerysov/os.git
 git push -u origin main
 
 git push
+
+
+git checkout main
+git pull
+git checkout -b feat/something
+
+git add .
+git commit -m "yet another commit"
+
+git push origin feat/something
+
+git checkout main
+git pull
+git branch -d feat/something

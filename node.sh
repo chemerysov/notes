@@ -9,3 +9,4 @@ pnpm install
 pnpm install --frozen-lockfile
 
 pnpm dev
+pnpm dev --host
