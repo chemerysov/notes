@@ -7,3 +7,5 @@ pnpm --version
 
 pnpm install
 pnpm install --frozen-lockfile
+
+pnpm dev
