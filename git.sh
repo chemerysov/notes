@@ -38,4 +38,4 @@ git push origin feat/something
 
 git checkout main
 git pull
-git branch -d feat/something
+git branch -D feat/something
