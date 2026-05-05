@@ -34,7 +34,8 @@ git checkout -b feat/something
 git add .
 git commit -m "yet another commit"
 
-git push origin feat/something
+git push -u origin feat/something
+git push
 
 git checkout main
 git pull
