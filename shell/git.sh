@@ -17,14 +17,15 @@ git branch -m main
 
 git add .
 git commit -m "initial commit"
-
 git commit --amend -m "amend"
-git tag -a v0.0.1 -m "something"
 
 git remote add origin https://github.com/chemerysov/os.git
 git push -u origin main
 
 git push
+
+git tag -a v0.0.1 -m "something"
+git push -u origin v0.0.1
 
 
 git checkout main
