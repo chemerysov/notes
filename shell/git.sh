@@ -26,7 +26,7 @@ git commit --amend -m "amend"
 git tag -a v0.0.1 -m "something"
 git push -u origin v0.0.1
 
-
+~/bin/push-complete -b "x" -c "y"
 git checkout -b feat/something
 git add .
 git commit -m "yet another commit"

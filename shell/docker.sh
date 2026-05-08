@@ -4,4 +4,11 @@ docker --version
 docker compose version
 
 docker compose up --build -d
-docker compose down && docker compose up --build -d
+
+docker compose -f docker-compose.local.yml up --build
+docker compose -f docker-compose.local.yml down
+
+brew install colima docker docker-compose
+colima start
+brew services start colima
+docker context use colima
