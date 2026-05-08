@@ -28,8 +28,6 @@ git tag -a v0.0.1 -m "something"
 git push -u origin v0.0.1
 
 
-git checkout main
-git pull
 git checkout -b feat/something
 
 git add .
