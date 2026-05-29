@@ -9,12 +9,12 @@ git config --global user.name "Andrii Chemerysov"
 git config --global user.email "achemerysov@gmail.com"
 
 git init
+git remote add origin https://github.com/chemerysov/notes.git
 
 git clone https://github.com/chemerysov/os.git
 
 git add .
 git commit -m "initial commit"
-git remote add origin https://github.com/chemerysov/notes.git
 git push -u origin main
 git push
 
